@@ -14,20 +14,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mernjwt', {
 .then(() => console.log('connected to db....'))
 .catch((err) => console.log(err));
 
-const User = require('./models/User');
-
-const userInput = {
-    username: "mwturner611",
-    password: "password",
-    role: "admin"
-}
-
-const user = new User(userInput);
-user.save((err,document)=>{
-    if(err)
-        console.log(err);
-    console.log(document);
-})
+const userRouter = require('./routes/User');
+app.use('/user',userRouter);
 
 app.listen(PORT, () => {
     console.log(`🌎 ==> API server now on port ${PORT}!`);
