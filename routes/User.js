@@ -25,3 +25,5 @@ userRouter.post('/register',(req,res)=>{
 
     });
 });
+
+module.exports = userRouter;
