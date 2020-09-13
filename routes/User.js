@@ -65,5 +65,15 @@ userRouter.post('/todo',passport.authenticate('jwt',{session: false}),(req,res)=
     })
 });
 
+userRouter.get('/todos',passport.authenticate('jwt',{session: false}),(req,res)=>{
+    User.findById({_id : req.user._id}).populate('todos').exec((err,document)=>{
+        if(err)
+            res.status(500).json({message: {msgBody: "Error has occured", msgError: true}})
+        else{
+            res.status(200).json({todos : document.todos, authenticated : true});
+        } 
+    })
+});
+
 
 module.exports = userRouter;
